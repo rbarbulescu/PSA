@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dog Airbnb Listings</title>
+</head>
+<body>
+    <h1>🐾 Dog Airbnb Listings</h1>
+
+    {% if user_email %}
+        <p>🔐 Logged in as <strong>{{ user_email }}</strong></p>
+        <form action="/logout" method="post">
+            <button type="submit">Logout</button>
+        </form>
+        <h2>Add a Listing</h2>
+        <form action="/saveListing" method="post">
+            <input type="text" name="firstname" placeholder="First name" required><br>
+            <input type="text" name="lastname" placeholder="Last name" required><br>
+            <input type="text" name="description" placeholder="Description" required><br>
+            <input type="number" step="0.01" name="price" placeholder="Price" required><br>
+            <button type="submit">Save</button>
+        </form>
+    {% else %}
+        <p><a href="/login-form">Login</a> or <a href="/register-form">Register</a> to add listings.</p>
+    {% endif %}
+
+    <h2>Available Listings</h2>
+    <ul>
+        {% for listing in listings %}
+            <li>
+                <strong>{{ listing.firstname }} {{ listing.lastname }}</strong><br>
+                {{ listing.description }} — <em>${{ listing.price }}</em><br>
+                {% if listing.client %}
+                    Posted by: {{ listing.client.email }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

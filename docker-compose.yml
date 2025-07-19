@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  mysql:
+    container_name: dog_airbnb_mysql
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: dogbnb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      TZ: Europe/Bucharest
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
